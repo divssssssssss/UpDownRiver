@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "edu.up.cs301.counter"
+    namespace = "edu.up.cs301.updown"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "edu.up.cs301.counter"
+        applicationId = "edu.up.cs301.updown"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
