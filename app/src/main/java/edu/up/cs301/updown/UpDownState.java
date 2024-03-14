@@ -39,6 +39,9 @@ public class UpDownState extends GameState {
 		this.counter = orig.counter;
 	}
 
+
+
+
 	/**
 	 * getter method for the counter
 	 * 
@@ -58,4 +61,5 @@ public class UpDownState extends GameState {
 	public void setCounter(int counter) {
 		this.counter = counter;
 	}
+//end of public gameState
 }
