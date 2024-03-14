@@ -1,5 +1,9 @@
 package edu.up.cs301.updown;
 
+import androidx.cardview.widget.CardView;
+
+import java.util.List;
+
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
 
@@ -11,51 +15,101 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
  * @version July 2013
  */
 public class UpDownState extends GameState {
-	
+
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
-	
-	// the value of the counter
-	private int counter;
-	
-	/**
-	 * constructor, initializing the counter value from the parameter
-	 * 
-	 * @param counterVal
-	 * 		the value to which the counter's value should be initialized
-	 */
-	public UpDownState(int counterVal) {
-		counter = counterVal;
+	private int id;
+	private Card[] flippedCard;
+	private List<UpDownHumanPlayer> players;
+	private int currentRound;
+	private int dealerCount;
+	private int playerScore;
+
+
+	public UpDownState() {
+		currentRound = 0;
+		dealerCount = 0;
+		id = 0;
+		flippedCard = new Card[21];
 	}
-	
+
+
 	/**
 	 * copy constructor; makes a copy of the original object
-	 * 
-	 * @param orig
-	 * 		the object from which the copy should be made
+	 *
+	 * @param orig the object from which the copy should be made
 	 */
 	public UpDownState(UpDownState orig) {
 		// set the counter to that of the original
-		this.counter = orig.counter;
+		// this.counter = orig.counter;
+		this.players = orig.players;
+		this.currentRound = orig.currentRound;
+		this.dealerCount = orig.dealerCount;
+		this.id = orig.id;
 	}
 
-	/**
-	 * getter method for the counter
-	 * 
-	 * @return
-	 * 		the value of the counter
-	 */
-	public int getCounter() {
-		return counter;
+	public List<UpDownHumanPlayer> getPlayers() {
+		return players;
 	}
-	
-	/**
-	 * setter method for the counter
-	 * 
-	 * @param counter
-	 * 		the value to which the counter should be set
-	 */
-	public void setCounter(int counter) {
-		this.counter = counter;
+
+	public int getCurrentRound() {
+		return currentRound;
 	}
+
+	public Card[] getFlippedCard() {
+		return flippedCard;
+	}
+
+	public int getDealerCount() {
+		return dealerCount;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getPlayerScore() {
+		return playerScore;
+	}
+
+	public void setPlayers(List<UpDownHumanPlayer> players) {
+		this.players = players;
+	}
+
+	public void setCurrentRound(int currentRound) {
+		this.currentRound = currentRound;
+	}
+
+	public void setFlippedCard(Card[] flippedCard) {
+		this.flippedCard = flippedCard;
+	}
+
+	public void setDealerCount(int dealerCount) {
+		this.dealerCount = dealerCount;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setPlayerScore(int playerScore) {
+		this.playerScore = playerScore;
+	}
+
+	public class Card {
+		private String suit;
+		private int rank;
+	}
+
+	public class Player {
+		private List<Card> hand;
+		private int drinksTaken;
+
+	}
+
+	public void incrementDealerCount() {
+		dealerCount++;
+	}
+
 }
+
