@@ -83,7 +83,7 @@ public class UpDownMainActivity extends GameMainActivity {
 	 */
 	@Override
 	public LocalGame createLocalGame(GameState state) {
-		if (state == null) state = new UpDownState(0);
+		if (state == null) state = new UpDownState();
 		return new UpDownLocalGame(state);
 	}
 
