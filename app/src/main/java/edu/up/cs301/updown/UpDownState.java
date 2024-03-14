@@ -1,6 +1,6 @@
 package edu.up.cs301.updown;
 
-import androidx.cardview.widget.CardView;
+//import androidx.cardview.widget.CardView;
 
 import java.util.List;
 
@@ -10,9 +10,10 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 /**
  * This contains the state for the Counter game. The state consist of simply
  * the value of the counter.
- * 
+ *
+ * @author Christopher Vo, Daniel Le, Divya Pakalapati, Ruth Shepard
  * @author Steven R. Vegdahl
- * @version July 2013
+ * @version July 2013, Spring 2024
  */
 public class UpDownState extends GameState {
 

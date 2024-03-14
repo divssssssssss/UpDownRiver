@@ -19,10 +19,11 @@ import android.view.View.OnClickListener;
  * Just for fun, the GUI is implemented so that if the player presses either button
  * when the counter-value is zero, the screen flashes briefly, with the flash-color
  * being dependent on whether the player is player 0 or player 1.
- * 
+ *
+ * @author Christopher Vo, Daniel Le, Divya Pakalapati, Ruth Shepard
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version July 2013
+ * @version July 2013, Spring 2024
  */
 public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListener {
 
