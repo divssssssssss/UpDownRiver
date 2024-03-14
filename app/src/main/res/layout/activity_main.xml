@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/p2_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp">
+
+        <ImageView
+            android:id="@+id/clubs_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="90"
+            app:srcCompat="@drawable/clubs_2" />
+
+        <ImageView
+            android:id="@+id/diamonds_10"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="90"
+            app:srcCompat="@drawable/diamonds_10" />
+
+        <ImageView
+            android:id="@+id/clubs_j"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="90"
+            app:srcCompat="@drawable/clubs_j" />
+
+        <ImageView
+            android:id="@+id/spades_4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="90"
+            app:srcCompat="@drawable/spades_4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/center_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/p3_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/clubs_q"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:rotation="180"
+                app:srcCompat="@drawable/clubs_q" />
+
+            <ImageView
+                android:id="@+id/spades_9"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:rotation="180"
+                app:srcCompat="@drawable/spades_9" />
+
+            <ImageView
+                android:id="@+id/diamonds_a"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:rotation="180"
+                app:srcCompat="@drawable/diamonds_a" />
+
+            <ImageView
+                android:id="@+id/clubs_5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:rotation="180"
+                app:srcCompat="@drawable/clubs_5" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/deck_piles_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/deck_pile"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
+                android:contentDescription="Card Image Back"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/btn_star"
+                tools:src="@drawable/cards_back" />
+
+            <ImageView
+                android:id="@+id/diamonds_8"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/diamonds_8" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/p1_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/hearts_j"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/hearts_j" />
+
+            <ImageView
+                android:id="@+id/spades_2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/spades_2" />
+
+            <ImageView
+                android:id="@+id/hearts_k"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/hearts_k" />
+
+            <ImageView
+                android:id="@+id/diamond_8"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/diamonds_8" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/p4_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp">
+
+        <ImageView
+            android:id="@+id/spades_k"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="270"
+            app:srcCompat="@drawable/spades_k" />
+
+        <ImageView
+            android:id="@+id/clubs_a"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="270"
+            app:srcCompat="@drawable/clubs_a" />
+
+        <ImageView
+            android:id="@+id/diamonds_7"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="270"
+            app:srcCompat="@drawable/diamonds_7" />
+
+        <ImageView
+            android:id="@+id/hearts_6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:rotation="270"
+            app:srcCompat="@drawable/hearts_6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10sp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Up The River"
+            android:textColor="#7C0000"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Scoreboard"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/score_board"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/list_players"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/player1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="P1:" />
+
+                <TextView
+                    android:id="@+id/player2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="P2:" />
+
+                <TextView
+                    android:id="@+id/player3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="P3:" />
+
+                <TextView
+                    android:id="@+id/player4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="P4:" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/players_scores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/p1points"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/p2points"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/p3points"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/p4points"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textAlignment="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="HOME" />
+
+    </LinearLayout>
+</LinearLayout>
