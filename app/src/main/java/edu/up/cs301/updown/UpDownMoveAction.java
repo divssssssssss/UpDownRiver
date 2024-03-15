@@ -1,5 +1,6 @@
 package edu.up.cs301.updown;
 
+import edu.up.cs301.GameFramework.Game;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 
@@ -41,6 +42,42 @@ public class UpDownMoveAction extends GameAction {
 	 */
 	public boolean isPlus() {
 		return isPlus;
-		
+
+	}
+
+	public static class AddPoint extends GameAction {
+
+		/**
+		 * constructor for GameAction
+		 *
+		 * @param player the player who created the action
+		 */
+		public AddPoint(GamePlayer player) {
+			super(player);
+		}
+	}
+
+	public static class SubtractPoint extends GameAction {
+
+		/**
+		 * constructor for GameAction
+		 *
+		 * @param player the player who created the action
+		 */
+		public SubtractPoint(GamePlayer player) {
+			super(player);
+		}
+	}
+
+	public static class SubmitPoints extends GameAction {
+
+		/**
+		 * constructor for GameAction
+		 *
+		 * @param player the player who created the action
+		 */
+		public SubmitPoints(GamePlayer player) {
+			super(player);
+		}
 	}
 }//class CounterMoveAction

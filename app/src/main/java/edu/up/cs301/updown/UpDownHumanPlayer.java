@@ -78,19 +78,41 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// Construct the action and send it to the game
 		GameAction action = null;
-		if (button.getId() == R.id.plusButton) {
+
+		boolean HasShuffled = false; // use to check if deck has been shuffled after down the river
+
+		// if it is the 8th round then the deck pile will turn into a shuffle card
+		if (state.getCurrentRound() == 8 && !HasShuffled) {
+			if (button.getId() == R.id.deck_pile) {
+				action = new ShuffleCards(this);
+				HasShuffled = true;
+			}
+		}
+		// Check to see if flip card button is pressed and is below 8 cards dealt
+		else if (button.getId() == R.id.deck_pile) {
+			action = new CardFlipped(this);
+		}
+
+		// return home button
+		if (button.getId() == R.id.homeButton) {
+			// return to main menu
+			 action = new ReturnHome(this);
+		}
+
+		if (button.getId() == R.id.plusButton) { // will need to change id for later
 			// plus button: create "increment" action
-			action = new UpDownMoveAction(this, true);
+			action = new UpDownMoveAction.AddPoint(this);
 		}
-		else if (button.getId() == R.id.minusButton) {
+		else if (button.getId() == R.id.minusButton) { // will need to change id for later
 			// minus button: create "decrement" action
-			action = new UpDownMoveAction(this, false);
+			action = new UpDownMoveAction.SubtractPoint(this);
 		}
-		else {
-			// something else was pressed: ignore
-			return;
+
+		// this will be for the submit points button *(need to change the ID when we get the popup to work)*
+		if (button.getId() == R.id.p1points) {
+			action = new UpDownMoveAction.SubmitPoints(this);
 		}
-		
+
 		game.sendAction(action); // send action to the game
 	}// onClick
 	
