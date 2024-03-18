@@ -48,7 +48,7 @@ public class UpDownComputerPlayer1 extends GameComputerPlayer implements Tickabl
 		// Do nothing, as we ignore all state in deciding our next move. It
 		// depends totally on the timer and random numbers.
 
-
+// 		*Dumb player just wanted them to identify player with lowest score and give them all points*
 //		// not sure about this code
 //		if (!(info instanceof UpDownState)) {
 //			return;
@@ -59,17 +59,20 @@ public class UpDownComputerPlayer1 extends GameComputerPlayer implements Tickabl
 //
 //		ArrayList<UpDownHumanPlayer> Amountplayers = new ArrayList<UpDownHumanPlayer>(gameState.getPlayers());
 //
+		// wanted to assign this value to something high to later change with anumber in deck
 //		int lowestScore = 10000; // set to high value to change
 //
+		// find the lowest score for each player in the game
 //		for (UpDownHumanPlayer player : Amountplayers) {
 //			int playerScore = gameState.getPlayerScore();
 //
+		// if the player score is lower assign that to lowestscore
 //			if (playerScore < lowestScore) {
 //				lowestScore = playerScore;
 //			}
 //		}
 //
-//		// get the round of the game
+//		// get the round of the game to know how many points to distribute
 //		int CurrentRound = gameState.getCurrentRound();
 //
 //		// add all the point to the person

@@ -32,13 +32,6 @@ public class UpDownLocalGame extends LocalGame {
 	// the game's state
 	private UpDownState gameState;
 
-	private LayoutSwitchListener layoutSwitchListener;
-
-	// Constructor
-
-	public void setLayoutSwitchListener(LayoutSwitchListener listener) {
-		this.layoutSwitchListener = listener;
-	}
 	/**
 	 * can this player move
 	 *
@@ -84,9 +77,8 @@ public class UpDownLocalGame extends LocalGame {
 //			return true;
 //		}
 
-
-		// not suppose to implement methods yet for project D
-		 if (action instanceof CardFlipped) {
+		// get a new card to be displayed by the deck
+		if (action instanceof CardFlipped) {
 			 // counts the amount dealer has played for the final reshuffle
 			 if (gameState.getCurrentRound() >= 8) {
 				 gameState.setDealerCount(gameState.getDealerCount() + 1);
@@ -105,51 +97,56 @@ public class UpDownLocalGame extends LocalGame {
 
 			 // Set the shuffled first card back to the game state
 			 UpDownState.Card[] shuffledCard = new UpDownState.Card[1]; // create new deck containing one card to be shown
+
 			 shuffledCard[0] = CurrentCard[0]; // set the card value to a new card
+
 			 gameState.setFlippedCard(shuffledCard); // display the new card for the current played card
 
 			gameState.setCurrentRound(gameState.getCurrentRound() + 1); // add 1 to the current round of the game
 
 			return true;
 		}
-		 // this will get the user to go back to the main menu
+		 // this will get the user to go back to the main menu *(not sure if it works yet)*
 		 else if (action instanceof ReturnHome) {
-			 if (layoutSwitchListener != null) {
-				 layoutSwitchListener.switchToMenuLayout();
-			 }
+		// gonna try to code this method to work not sure yet
 			 return true;
 		 }
 		 // this will reshuffle the whole deck of cards
 		 else if (action instanceof ShuffleCards) {
 			 UpDownState.Card[] deck = gameState.getFlippedCard();
-			 if (deck.length > 1) { // Ensure shuffling is necessary
+
+			// make sure deck is bigger then 1 card for the need to shuffle
+			 if (deck.length > 1) {
 				 Random random = new Random();
+
 				 // Iterate through each card in the deck
 				 for (int i = 0; i < deck.length; i++) {
 					 // Generate a random index within the range of the deck length
 					 int randomIndex = random.nextInt(deck.length);
+
 					 // Swap the current card with a randomly selected card in the deck
 					 UpDownState.Card temp = deck[i]; // Store card a temporary variable
 					 deck[i] = deck[randomIndex]; // Replace current card with the randomly selected card
 					 deck[randomIndex] = temp; // Put current card in the position of the randomly selected card
 				 }
-				 gameState.setFlippedCard(deck); // Update the game state with the shuffled deck
+				 // Update the game state with the shuffled deck
+				 gameState.setFlippedCard(deck);
 			 }
 			 return true;
 		 }
-		 // add point for down the river
+		 // add 1 point for down the river if button is clicked
 		 else if (action instanceof UpDownMoveAction.AddPoint) {
-			 gameState.setPlayerScore(gameState.getPlayerScore() + 1); // + 1 to player score if button clicked
+			 gameState.setPlayerScore(gameState.getPlayerScore() + 1);
 			 return true;
 		 }
-		 // subtract point for down the river
+		 // subtract 1 point for down the river if button is clicked
 		 else if (action instanceof UpDownMoveAction.SubtractPoint) {
-			 gameState.setPlayerScore(gameState.getPlayerScore() - 1); // - 1 to player score if button clicked
+			 gameState.setPlayerScore(gameState.getPlayerScore() - 1);
 			 return true;
 		 }
-		 // submit the points to players for Down the River
+		 // submit the points to players for Down the River when button is clicked and also -1 to current round
 		 else if (action instanceof UpDownMoveAction.SubmitPoints) {
-			 gameState.setCurrentRound(gameState.getCurrentRound() - 1); // -1 to the current round when going down after points submitted
+			 gameState.setCurrentRound(gameState.getCurrentRound() - 1);
 			 return true;
 		}
 
