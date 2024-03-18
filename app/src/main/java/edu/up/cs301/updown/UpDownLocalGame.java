@@ -108,7 +108,9 @@ public class UpDownLocalGame extends LocalGame {
 		}
 		 // this will get the user to go back to the main menu *(not sure if it works yet)*
 		 else if (action instanceof ReturnHome) {
-		// gonna try to code this method to work not sure yet
+			/**
+				gonna try to implement this method
+			 */
 			 return true;
 		 }
 		 // this will reshuffle the whole deck of cards
