@@ -107,6 +107,16 @@ public class UpDownState extends GameState {
 		stringBuilder.append("\n");
 
 		return stringBuilder.toString();
+
+		/*
+		ALTERNATE SIMPLE TOSTRING METHOD
+		return "Up the River Down the River Game State:" +
+        "\nID: " + id +
+        "\nCurrent Round: " + currentRound +
+        "\nDealer Count-Off: " + dealerCount +
+        "\nPlayer Score: " + playerScore +
+        "\nFlipped Cards: ";
+		 */
 	}
 
 
