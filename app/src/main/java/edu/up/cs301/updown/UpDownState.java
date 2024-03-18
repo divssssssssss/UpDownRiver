@@ -2,6 +2,7 @@ package edu.up.cs301.updown;
 
 //import androidx.cardview.widget.CardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
@@ -21,11 +22,12 @@ public class UpDownState extends GameState {
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
 	private int id;
+	// variable used to keep track of the cards that have been flipped by the dealer
 
 	// Current value of card on playing deck pile
 	private Card[] flippedCard;
 
-	private List<UpDownHumanPlayer> players;
+	private ArrayList<Integer> players = new ArrayList<>();
 
 	/*
 	Includes both up and down the river.
@@ -55,42 +57,13 @@ public class UpDownState extends GameState {
 	 */
 	public UpDownState(UpDownState orig) {
 		// set the counter to that of the original
-		// this.counter = orig.counter;
 		this.players = orig.players;
 		this.currentRound = orig.currentRound;
 		this.dealerCount = orig.dealerCount;
 		this.id = orig.id;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("Up the River Down the River Game State:");
-		stringBuilder.append("\n");
-		stringBuilder.append("ID: ").append(id);
-		stringBuilder.append("\n");
-		stringBuilder.append("Current Round: ").append(currentRound);
-		stringBuilder.append("\n");
-		stringBuilder.append("Dealer Count-Off: ").append(dealerCount);
-		stringBuilder.append("\n");
-		stringBuilder.append("Player Score: ").append(playerScore);
-		stringBuilder.append("\n");
-		stringBuilder.append("Flipped Cards: ");
-		if (flippedCard != null) {
-			for (int i = 0; i < flippedCard.length; i++) {
-				stringBuilder.append(flippedCard[i]).append(", ");
-			}
-			stringBuilder.setLength(stringBuilder.length() - 2); // Remove the last comma and space
-		} else {
-			stringBuilder.append("No cards flipped yet");
-		}
-		stringBuilder.append("\n");
-
-		return stringBuilder.toString();
-	}
-
-
-	public List<UpDownHumanPlayer> getPlayers() {
+	public ArrayList<Integer> getPlayers() {
 		return players;
 	}
 
@@ -114,7 +87,7 @@ public class UpDownState extends GameState {
 		return playerScore;
 	}
 
-	public void setPlayers(List<UpDownHumanPlayer> players) {
+	public void setPlayers(ArrayList<Integer> players) {
 		this.players = players;
 	}
 
@@ -144,7 +117,7 @@ public class UpDownState extends GameState {
 	}
 
 	public class Player {
-		private List<Card> hand;
+		private ArrayList<Card> hand;
 		private int drinksTaken;
 
 	}
