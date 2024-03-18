@@ -1,7 +1,7 @@
 package edu.up.cs301.updown;
 
-import androidx.cardview.widget.CardView;
-
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
@@ -19,8 +19,10 @@ public class UpDownState extends GameState {
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
 	private int id;
+	// variable used to keep track of the cards that have been flipped by the dealer
 	private Card[] flippedCard;
-	private List<UpDownHumanPlayer> players;
+	
+	private ArrayList<Integer> players = new ArrayList<Integer>();
 	private int currentRound;
 	private int dealerCount;
 	private int playerScore;
@@ -41,14 +43,13 @@ public class UpDownState extends GameState {
 	 */
 	public UpDownState(UpDownState orig) {
 		// set the counter to that of the original
-		// this.counter = orig.counter;
 		this.players = orig.players;
 		this.currentRound = orig.currentRound;
 		this.dealerCount = orig.dealerCount;
 		this.id = orig.id;
 	}
 
-	public List<UpDownHumanPlayer> getPlayers() {
+	public ArrayList<Integer> getPlayers() {
 		return players;
 	}
 
@@ -72,7 +73,7 @@ public class UpDownState extends GameState {
 		return playerScore;
 	}
 
-	public void setPlayers(List<UpDownHumanPlayer> players) {
+	public void setPlayers(ArrayList<Integer> players) {
 		this.players = players;
 	}
 
@@ -102,7 +103,7 @@ public class UpDownState extends GameState {
 	}
 
 	public class Player {
-		private List<Card> hand;
+		private ArrayList<Card> hand;
 		private int drinksTaken;
 
 	}
