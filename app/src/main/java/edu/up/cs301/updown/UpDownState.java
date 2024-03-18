@@ -4,6 +4,7 @@ package edu.up.cs301.updown;
 
 import java.util.List;
 
+import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
 
