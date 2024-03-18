@@ -58,9 +58,9 @@ public class UpDownState extends GameState {
 		// set the counter to that of the original
 		// this.counter = orig.counter;
 		this.players = new ArrayList<>();
-		for(...) {
-			//mkae a copy of each of the players into this list
-		}
+//		for(...) {
+//			//mkae a copy of each of the players into this list
+//		}
 		this.currentRound = orig.currentRound;
 		this.dealerCount = orig.dealerCount;
 		this.id = orig.id;
