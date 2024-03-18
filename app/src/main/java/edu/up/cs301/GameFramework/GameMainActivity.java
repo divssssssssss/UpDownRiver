@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,6 +36,7 @@ import edu.up.cs301.GameFramework.utilities.Logger;
 import edu.up.cs301.GameFramework.utilities.MessageBox;
 import edu.up.cs301.GameFramework.utilities.Saving;
 import edu.up.cs301.updown.R;
+import edu.up.cs301.updown.UpDownLocalGame;
 
 /**
  * class GameMainActivity
@@ -47,8 +49,7 @@ import edu.up.cs301.updown.R;
  * @author Eric Imperio
  * @date Version 2020
  */
-public abstract class GameMainActivity extends Activity implements
-        View.OnClickListener {
+public abstract class GameMainActivity extends Activity implements View.OnClickListener {
     //Tag for Logging
     private static final String TAG = "GameMainActivity";
     /*
@@ -204,7 +205,11 @@ public abstract class GameMainActivity extends Activity implements
         }else {
             Logger.setDebugValue(false);
         }
+
+        UpDownLocalGame localGame = new UpDownLocalGame(getGameState());
+
     }// onCreate
+
 
     /**
      * Returns the name of the configuration save-file.
