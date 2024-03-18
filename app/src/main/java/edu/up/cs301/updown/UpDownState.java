@@ -2,6 +2,7 @@ package edu.up.cs301.updown;
 
 //import androidx.cardview.widget.CardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
@@ -44,6 +45,7 @@ public class UpDownState extends GameState {
 		dealerCount = 0;
 		id = 0;
 		flippedCard = new Card[21];
+
 	}
 
 
@@ -55,10 +57,22 @@ public class UpDownState extends GameState {
 	public UpDownState(UpDownState orig) {
 		// set the counter to that of the original
 		// this.counter = orig.counter;
-		this.players = orig.players;
+		this.players = new ArrayList<>();
+		for(...) {
+			//mkae a copy of each of the players into this list
+		}
 		this.currentRound = orig.currentRound;
 		this.dealerCount = orig.dealerCount;
 		this.id = orig.id;
+		this.playerScore = orig.playerScore;
+
+		flippedCard = new Card[orig.flippedCard.length];
+//		for(...) {
+//			this.flippedCard[i] = orig.flippedCard[i]; //this is wrong
+//		}
+		for (int i = 0; i < orig.flippedCard.length; i++) {
+			this.flippedCard[i] = new Card(orig.flippedCard[i].getSuit(), orig.flippedCard[i].getRank());
+		}
 	}
 
 	@Override
@@ -140,6 +154,21 @@ public class UpDownState extends GameState {
 	public class Card {
 		private String suit;
 		private int rank;
+
+		// Constructor
+		public Card(String suit, int rank) {
+			this.suit = suit;
+			this.rank = rank;
+		}
+
+		// Getter methods
+		public String getSuit() {
+			return suit;
+		}
+
+		public int getRank() {
+			return rank;
+		}
 	}
 
 	public class Player {
