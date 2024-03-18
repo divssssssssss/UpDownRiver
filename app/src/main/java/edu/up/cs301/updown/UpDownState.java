@@ -1,18 +1,21 @@
 package edu.up.cs301.updown;
 
-import java.lang.reflect.Array;
+//import androidx.cardview.widget.CardView;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
 
 /**
  * This contains the state for the Counter game. The state consist of simply
  * the value of the counter.
- * 
+ *
+ * @author Christopher Vo, Daniel Le, Divya Pakalapati, Ruth Shepard
  * @author Steven R. Vegdahl
- * @version July 2013
+ * @version July 2013, Spring 2024
  */
 public class UpDownState extends GameState {
 
@@ -20,10 +23,21 @@ public class UpDownState extends GameState {
 	private static final long serialVersionUID = 7737393762469851826L;
 	private int id;
 	// variable used to keep track of the cards that have been flipped by the dealer
+
+	// Current value of card on playing deck pile
 	private Card[] flippedCard;
-	
-	private ArrayList<Integer> players = new ArrayList<Integer>();
+
+	private ArrayList<Integer> players = new ArrayList<>();
+
+	/*
+	Includes both up and down the river.
+	currentRound <= 4 = up river
+	currentRound > 4 && currentRound < 9 = down river
+	currentRound == 9 = count off for final round
+	 */
 	private int currentRound;
+
+	// Count for final round going from 1-13.
 	private int dealerCount;
 	private int playerScore;
 

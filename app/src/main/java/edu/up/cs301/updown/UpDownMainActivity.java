@@ -10,10 +10,11 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
 
 /**
  * this is the primary activity for Counter game
- * 
+ *
+ * @author Christopher Vo, Daniel Le, Divya Pakalapati, Ruth Shepard
  * @author Andrew M. Nuxoll
  * @author Steven R. Vegdahl
- * @version July 2013
+ * @version July 2013, Spring 2024
  */
 public class UpDownMainActivity extends GameMainActivity {
 	

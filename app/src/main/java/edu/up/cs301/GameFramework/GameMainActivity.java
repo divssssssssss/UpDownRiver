@@ -34,7 +34,10 @@ import edu.up.cs301.GameFramework.utilities.IPCoder;
 import edu.up.cs301.GameFramework.utilities.Logger;
 import edu.up.cs301.GameFramework.utilities.MessageBox;
 import edu.up.cs301.GameFramework.utilities.Saving;
+import edu.up.cs301.updown.LayoutSwitchListener;
 import edu.up.cs301.updown.R;
+import edu.up.cs301.updown.UpDownLocalGame;
+import edu.up.cs301.updown.UpDownState;
 
 /**
  * class GameMainActivity
@@ -47,8 +50,7 @@ import edu.up.cs301.updown.R;
  * @author Eric Imperio
  * @date Version 2020
  */
-public abstract class GameMainActivity extends Activity implements
-        View.OnClickListener {
+public abstract class GameMainActivity extends Activity implements View.OnClickListener, LayoutSwitchListener {
     //Tag for Logging
     private static final String TAG = "GameMainActivity";
     /*
@@ -204,7 +206,15 @@ public abstract class GameMainActivity extends Activity implements
         }else {
             Logger.setDebugValue(false);
         }
+
+        UpDownLocalGame localGame = new UpDownLocalGame(getGameState());
+        localGame.setLayoutSwitchListener(this);
     }// onCreate
+
+    @Override
+    public void switchToMenuLayout() {
+        setContentView(R.layout.game_config_main);
+    }
 
     /**
      * Returns the name of the configuration save-file.

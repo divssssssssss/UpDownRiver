@@ -4,16 +4,21 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
+
+import android.text.Layout;
 import android.util.Log;
+
+import java.util.Random;
 
 /**
  * A class that represents the state of a game. In our counter game, the only
  * relevant piece of information is the value of the game's counter. The
  * CounterState object is therefore very simple.
- * 
+ *
+ * @author Christopher Vo, Daniel Le, Divya Pakalapati, Ruth Shepard
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version July 2013
+ * @version July 2013, Spring 2024
  */
 public class UpDownLocalGame extends LocalGame {
 
@@ -27,6 +32,13 @@ public class UpDownLocalGame extends LocalGame {
 	// the game's state
 	private UpDownState gameState;
 
+	private LayoutSwitchListener layoutSwitchListener;
+
+	// Constructor
+
+	public void setLayoutSwitchListener(LayoutSwitchListener listener) {
+		this.layoutSwitchListener = listener;
+	}
 	/**
 	 * can this player move
 	 *
@@ -58,22 +70,90 @@ public class UpDownLocalGame extends LocalGame {
 	protected boolean makeMove(GameAction action) {
 		Log.i("action", action.getClass().toString());
 
-		if (action instanceof UpDownMoveAction) {
+		// this was here before I got here
+//		if (action instanceof UpDownMoveAction) {
+//
+//			// cast so that we Java knows it's a CounterMoveAction
+//			UpDownMoveAction cma = (UpDownMoveAction)action;
+//
+//			// Update the counter values based upon the action
+//			//int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
+//			//gameState.setCounter(result);
+//
+//			// denote that this was a legal/successful move
+//			return true;
+//		}
 
-			// cast so that we Java knows it's a CounterMoveAction
-			UpDownMoveAction cma = (UpDownMoveAction)action;
 
-			// Update the counter values based upon the action
-			//int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
-			//gameState.setCounter(result);
+		// not suppose to implement methods yet for project D
+		 if (action instanceof CardFlipped) {
+			 // counts the amount dealer has played for the final reshuffle
+			 if (gameState.getCurrentRound() >= 8) {
+				 gameState.setDealerCount(gameState.getDealerCount() + 1);
+			 }
 
-			// denote that this was a legal/successful move
+			 UpDownState.Card[] CurrentCard = gameState.getFlippedCard();
+
+			// want to be able to shuffle the deck of cards and set it to it (not correct yet)
+			 Random random = new Random();
+			 int randomIndex = random.nextInt(CurrentCard.length);
+
+			 // Swap the first card with the randomly selected card
+			 UpDownState.Card temp = CurrentCard[0];
+			 CurrentCard[randomIndex] = temp;
+			 CurrentCard[0] = CurrentCard[randomIndex]; // set the first element to a random card in the deck
+
+			 // Set the shuffled first card back to the game state
+			 UpDownState.Card[] shuffledCard = new UpDownState.Card[1]; // create new deck containing one card to be shown
+			 shuffledCard[0] = CurrentCard[0]; // set the card value to a new card
+			 gameState.setFlippedCard(shuffledCard); // display the new card for the current played card
+
+			gameState.setCurrentRound(gameState.getCurrentRound() + 1); // add 1 to the current round of the game
+
 			return true;
 		}
-		else {
-			// denote that this was an illegal move
-			return false;
+		 // this will get the user to go back to the main menu
+		 else if (action instanceof ReturnHome) {
+			 if (layoutSwitchListener != null) {
+				 layoutSwitchListener.switchToMenuLayout();
+			 }
+			 return true;
+		 }
+		 // this will reshuffle the whole deck of cards
+		 else if (action instanceof ShuffleCards) {
+			 UpDownState.Card[] deck = gameState.getFlippedCard();
+			 if (deck.length > 1) { // Ensure shuffling is necessary
+				 Random random = new Random();
+				 // Iterate through each card in the deck
+				 for (int i = 0; i < deck.length; i++) {
+					 // Generate a random index within the range of the deck length
+					 int randomIndex = random.nextInt(deck.length);
+					 // Swap the current card with a randomly selected card in the deck
+					 UpDownState.Card temp = deck[i]; // Store card a temporary variable
+					 deck[i] = deck[randomIndex]; // Replace current card with the randomly selected card
+					 deck[randomIndex] = temp; // Put current card in the position of the randomly selected card
+				 }
+				 gameState.setFlippedCard(deck); // Update the game state with the shuffled deck
+			 }
+			 return true;
+		 }
+		 // add point for down the river
+		 else if (action instanceof UpDownMoveAction.AddPoint) {
+			 gameState.setPlayerScore(gameState.getPlayerScore() + 1); // + 1 to player score if button clicked
+			 return true;
+		 }
+		 // subtract point for down the river
+		 else if (action instanceof UpDownMoveAction.SubtractPoint) {
+			 gameState.setPlayerScore(gameState.getPlayerScore() - 1); // - 1 to player score if button clicked
+			 return true;
+		 }
+		 // submit the points to players for Down the River
+		 else if (action instanceof UpDownMoveAction.SubmitPoints) {
+			 gameState.setCurrentRound(gameState.getCurrentRound() - 1); // -1 to the current round when going down after points submitted
+			 return true;
 		}
+
+		return false;
 	}//makeMove
 
 	/**
