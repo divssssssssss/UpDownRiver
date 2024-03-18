@@ -61,6 +61,22 @@ public class UpDownState extends GameState {
 		this.id = orig.id;
 	}
 
+	/**
+	 External Citation
+	 Date: 13 March 2024
+	 Problem: Reviewing how to write a toString method correctly and wanted a way to clearly see
+	 each portion of my to string with labels
+	 Resources:
+	 https://www.javatpoint.com/understanding-toString()-method
+	 https://levelup.gitconnected.com/working-of-tostring-and-comparing-concat-and-append
+	 -f688a5f8433c
+	 Solution: I used the default method name from the javapoint.com example and then referenced the
+	 append article within the levelup website to write my toString method
+	 */
+
+	// toString method builds a string by appending to clearly see what is being printed
+	// it should print the title followed by each variable in Game State on a new line
+	// reference the flippedCards comment for more specifics
 	@Override
 	public String toString() {
 		StringBuilder stringBuilder = new StringBuilder();
@@ -75,11 +91,15 @@ public class UpDownState extends GameState {
 		stringBuilder.append("Player Score: ").append(playerScore);
 		stringBuilder.append("\n");
 		stringBuilder.append("Flipped Cards: ");
+
+		// if there are flipped cards (other than if null), iterates through cards
+		// appends each + comma and space. removes final comma and space
+
 		if (flippedCard != null) {
 			for (int i = 0; i < flippedCard.length; i++) {
 				stringBuilder.append(flippedCard[i]).append(", ");
 			}
-			stringBuilder.setLength(stringBuilder.length() - 2); // Remove the last comma and space
+			stringBuilder.setLength(stringBuilder.length() - 2);
 		} else {
 			stringBuilder.append("No cards flipped yet");
 		}
