@@ -86,7 +86,7 @@ public class UpDownLocalGame extends LocalGame {
 
 			 UpDownState.Card[] CurrentCard = gameState.getFlippedCard();
 
-			// want to be able to shuffle the deck of cards and set it to it (not correct yet)
+			 // want to be able to shuffle the deck of cards and set it to it (not correct yet)
 			 Random random = new Random();
 			 int randomIndex = random.nextInt(CurrentCard.length);
 
@@ -95,14 +95,15 @@ public class UpDownLocalGame extends LocalGame {
 			 CurrentCard[randomIndex] = temp;
 			 CurrentCard[0] = CurrentCard[randomIndex]; // set the first element to a random card in the deck
 
-			 // Set the shuffled first card back to the game state
-			 UpDownState.Card[] shuffledCard = new UpDownState.Card[1]; // create new deck containing one card to be shown
+			 // Set the shuffled first card back to the game state by creating a new deck containing one card to be shown
+			 UpDownState.Card[] shuffledCard = new UpDownState.Card[1];
 
-			 shuffledCard[0] = CurrentCard[0]; // set the card value to a new card
+			 shuffledCard[0] = CurrentCard[0];
 
-			 gameState.setFlippedCard(shuffledCard); // display the new card for the current played card
+			 gameState.setFlippedCard(shuffledCard);
 
-			gameState.setCurrentRound(gameState.getCurrentRound() + 1); // add 1 to the current round of the game
+			// add 1 to the current round of the game
+			gameState.setCurrentRound(gameState.getCurrentRound() + 1);
 
 			return true;
 		}
@@ -127,9 +128,9 @@ public class UpDownLocalGame extends LocalGame {
 					 int randomIndex = random.nextInt(deck.length);
 
 					 // Swap the current card with a randomly selected card in the deck
-					 UpDownState.Card temp = deck[i]; // Store card a temporary variable
-					 deck[i] = deck[randomIndex]; // Replace current card with the randomly selected card
-					 deck[randomIndex] = temp; // Put current card in the position of the randomly selected card
+					 UpDownState.Card temp = deck[i];
+					 deck[i] = deck[randomIndex];
+					 deck[randomIndex] = temp;
 				 }
 				 // Update the game state with the shuffled deck
 				 gameState.setFlippedCard(deck);
