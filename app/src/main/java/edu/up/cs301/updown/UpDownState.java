@@ -116,6 +116,7 @@ public class UpDownState extends GameState {
 		private int rank;
 	}
 
+	//comit
 	public class Player {
 		private ArrayList<Card> hand;
 		private int drinksTaken;
