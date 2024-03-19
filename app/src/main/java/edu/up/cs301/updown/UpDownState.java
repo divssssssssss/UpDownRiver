@@ -21,12 +21,12 @@ public class UpDownState extends GameState {
 
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
+	// unique identifier for the game state
 	private int id;
-	// variable used to keep track of the cards that have been flipped by the dealer
-
-	// current value of card on playing deck pile
+	// array to keep track of the cards that have been flipped by the dealer
 	private Card[] flippedCard;
 
+	// list to store player IDs who are currently participating in game
 	private ArrayList<Integer> players = new ArrayList<>();
 
 	/*
@@ -39,6 +39,7 @@ public class UpDownState extends GameState {
 
 	// count for final round going from 1-13
 	private int dealerCount;
+	// keep track of each player's score
 	private int playerScore;
 
 
@@ -46,7 +47,7 @@ public class UpDownState extends GameState {
 		currentRound = 0;
 		dealerCount = 0;
 		id = 0;
-		flippedCard = new Card[21];
+		flippedCard = new Card[21]; // initializing the array to track flipped cards
 	}
 
 	/**
@@ -110,13 +111,14 @@ public class UpDownState extends GameState {
 	 * @param orig the object from which the copy should be made
 	 */
 	public UpDownState(UpDownState orig) {
-		// set the counter to that of the original
+		// Copy game state variables from the original object
 		this.players = orig.players;
 		this.currentRound = orig.currentRound;
 		this.dealerCount = orig.dealerCount;
 		this.id = orig.id;
 	}
 
+	// Getter methods to access game state variables
 	public ArrayList<Integer> getPlayers() {
 		return players;
 	}
@@ -141,6 +143,7 @@ public class UpDownState extends GameState {
 		return playerScore;
 	}
 
+	// Setter methods to modify game state variables
 	public void setPlayers(ArrayList<Integer> players) {
 		this.players = players;
 	}
@@ -165,17 +168,18 @@ public class UpDownState extends GameState {
 		this.playerScore = playerScore;
 	}
 
+	// Inner class to represent a card that has a suit and rank
 	public class Card {
 		private String suit;
 		private int rank;
 	}
-
+	// Inner class to represent a player that has a card and how many drinks they have taken
 	public class Player {
 		private ArrayList<Card> hand;
 		private int drinksTaken;
 
 	}
-
+	// Method to increment the dealer count when the dealer counts from 1-13
 	public void incrementDealerCount() {
 		dealerCount++;
 	}
