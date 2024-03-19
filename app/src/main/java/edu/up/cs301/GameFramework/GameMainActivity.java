@@ -37,6 +37,7 @@ import edu.up.cs301.GameFramework.utilities.MessageBox;
 import edu.up.cs301.GameFramework.utilities.Saving;
 import edu.up.cs301.updown.R;
 import edu.up.cs301.updown.UpDownLocalGame;
+import edu.up.cs301.updown.UpDownState;
 
 /**
  * class GameMainActivity
@@ -206,7 +207,8 @@ public abstract class GameMainActivity extends Activity implements View.OnClickL
             Logger.setDebugValue(false);
         }
 
-        UpDownLocalGame localGame = new UpDownLocalGame(getGameState());
+        UpDownState uds = new UpDownState();
+        game = new UpDownLocalGame(uds);
 
     }// onCreate
 
