@@ -2,6 +2,7 @@ package edu.up.cs301.updown;
 
 //import androidx.cardview.widget.CardView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class UpDownState extends GameState {
 	private static final long serialVersionUID = 7737393762469851826L;
 	// unique identifier for the game state
 	private int id;
-	// array to keep track of the cards that have been flipped by the dealer
-	private Card[] flippedCard;
+	// arraylist to keep track of the cards that have been flipped by the dealer
+	private ArrayList<Card> flippedCard;
 
 	// list to store player IDs who are currently participating in game
 	private ArrayList<Integer> players = new ArrayList<>();
@@ -47,7 +48,15 @@ public class UpDownState extends GameState {
 		currentRound = 0;
 		dealerCount = 0;
 		id = 0;
-		flippedCard = new Card[21]; // initializing the array to track flipped cards
+		flippedCard = new ArrayList<>(); // initializing the array to track flipped cards
+		// add 52 cards
+		String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+		for(String suit: suits) {
+			for(int rank = 1; rank <= 13; rank++) {
+				Card card = new Card(suit, rank);
+				flippedCard.add(card);
+			}
+		}
 	}
 
 	/**
@@ -80,20 +89,19 @@ public class UpDownState extends GameState {
 		stringBuilder.append("Player Score: ").append(playerScore);
 		stringBuilder.append("\n");
 		stringBuilder.append("Flipped Cards: ");
+
 		// if there are flipped cards (other than if null), iterates through cards
 		// appends each + comma and space. removes final comma and space
-		if (flippedCard != null) {
-			for (int i = 0; i < flippedCard.length; i++) {
-				stringBuilder.append(flippedCard[i]).append(", ");
-			}
-			stringBuilder.setLength(stringBuilder.length() - 2); // Remove the last comma and space
-		} else {
-			stringBuilder.append("No cards flipped yet");
+		if (flippedCard != null && !flippedCard.isEmpty()) {
+			for (Card card : flippedCard) { //for (int i = 0; i < flippedCard.length; i++) {
+				stringBuilder.append(card).append(", ");
 		}
+		stringBuilder.setLength(stringBuilder.length() - 2); // Remove the last comma and space
+	} else {
+		stringBuilder.append("No cards flipped yet");
+	}
 		stringBuilder.append("\n");
-
 		return stringBuilder.toString();
-
 		/*
 		ALTERNATE SIMPLE TOSTRING METHOD
 		return "Up the River Down the River Game State:" +
@@ -127,7 +135,7 @@ public class UpDownState extends GameState {
 		return currentRound;
 	}
 
-	public Card[] getFlippedCard() {
+	public ArrayList<Card> getFlippedCard() {
 		return flippedCard;
 	}
 
@@ -152,7 +160,7 @@ public class UpDownState extends GameState {
 		this.currentRound = currentRound;
 	}
 
-	public void setFlippedCard(Card[] flippedCard) {
+	public void setFlippedCard(ArrayList<Card> flippedCard) {
 		this.flippedCard = flippedCard;
 	}
 
@@ -172,7 +180,12 @@ public class UpDownState extends GameState {
 	public class Card {
 		private String suit;
 		private int rank;
-	}
+
+		public Card(String suit, int rank) {
+			this.suit = suit;
+			this.rank = rank;
+		}
+ 	}
 	// Inner class to represent a player that has a card and how many drinks they have taken
 	public class Player {
 		private ArrayList<Card> hand;
