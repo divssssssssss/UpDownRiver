@@ -24,20 +24,20 @@ public class UpDownState extends GameState {
 	private int id;
 	// variable used to keep track of the cards that have been flipped by the dealer
 
-	// Current value of card on playing deck pile
+	// current value of card on playing deck pile
 	private Card[] flippedCard;
 
 	private ArrayList<Integer> players = new ArrayList<>();
 
 	/*
-	Includes both up and down the river.
+	includes both up and down the river
 	currentRound <= 4 = up river
 	currentRound > 4 && currentRound < 9 = down river
 	currentRound == 9 = count off for final round
 	 */
 	private int currentRound;
 
-	// Count for final round going from 1-13.
+	// count for final round going from 1-13
 	private int dealerCount;
 	private int playerScore;
 
@@ -49,6 +49,60 @@ public class UpDownState extends GameState {
 		flippedCard = new Card[21];
 	}
 
+	/**
+	 External Citation
+	 Date: 13 March 2024
+	 Problem: Reviewing how to write a toString method correctly and wanted a way to clearly see
+	 each portion of my to string with labels
+	 Resources:
+	 https://www.javatpoint.com/understanding-toString()-method
+	 https://levelup.gitconnected.com/working-of-tostring-and-comparing-concat-and-append
+	 -f688a5f8433c
+	 Solution: I used the default method name from the javapoint.com example and then referenced the
+	 append article within the levelup website to write my toString method
+	 */
+
+	// toString method builds a string by appending to clearly see what is being printed
+	// it should print the title followed by each variable in Game State on a new line
+	// reference the flippedCards comment for more specifics
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Up the River Down the River Game State:");
+		stringBuilder.append("\n");
+		stringBuilder.append("ID: ").append(id);
+		stringBuilder.append("\n");
+		stringBuilder.append("Current Round: ").append(currentRound);
+		stringBuilder.append("\n");
+		stringBuilder.append("Dealer Count-Off: ").append(dealerCount);
+		stringBuilder.append("\n");
+		stringBuilder.append("Player Score: ").append(playerScore);
+		stringBuilder.append("\n");
+		stringBuilder.append("Flipped Cards: ");
+		// if there are flipped cards (other than if null), iterates through cards
+		// appends each + comma and space. removes final comma and space
+		if (flippedCard != null) {
+			for (int i = 0; i < flippedCard.length; i++) {
+				stringBuilder.append(flippedCard[i]).append(", ");
+			}
+			stringBuilder.setLength(stringBuilder.length() - 2); // Remove the last comma and space
+		} else {
+			stringBuilder.append("No cards flipped yet");
+		}
+		stringBuilder.append("\n");
+
+		return stringBuilder.toString();
+
+		/*
+		ALTERNATE SIMPLE TOSTRING METHOD
+		return "Up the River Down the River Game State:" +
+        "\nID: " + id +
+        "\nCurrent Round: " + currentRound +
+        "\nDealer Count-Off: " + dealerCount +
+        "\nPlayer Score: " + playerScore +
+        "\nFlipped Cards: ";
+		 */
+	}
 
 	/**
 	 * copy constructor; makes a copy of the original object
