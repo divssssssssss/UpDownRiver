@@ -2,11 +2,8 @@ package edu.up.cs301.updown;
 
 //import androidx.cardview.widget.CardView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
-import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
 
@@ -28,7 +25,7 @@ public class UpDownState extends GameState {
 	private ArrayList<Card> flippedCard;
 
 	// list to store player IDs who are currently participating in game
-	private ArrayList<Integer> players = new ArrayList<>();
+	private ArrayList<Player> players = new ArrayList<Player>();
 
 	/*
 	includes both up and down the river
@@ -118,16 +115,30 @@ public class UpDownState extends GameState {
 	 *
 	 * @param orig the object from which the copy should be made
 	 */
+	// Copy constructor for UpDownState
 	public UpDownState(UpDownState orig) {
-		// Copy game state variables from the original object
-		this.players = orig.players;
 		this.currentRound = orig.currentRound;
 		this.dealerCount = orig.dealerCount;
 		this.id = orig.id;
+		this.playerScore = orig.playerScore;
+
+		// Copy players
+		this.players = new ArrayList<>();
+		for (Player originalPlayer : orig.players) {
+			this.players.add(new Player(originalPlayer));
+		}
+
+		// Copy flipped cards
+		this.flippedCard = new ArrayList<>();
+		for (Card card : orig.flippedCard) {
+			this.flippedCard.add(new Card(card));
+		}
 	}
 
+
+
 	// Getter methods to access game state variables
-	public ArrayList<Integer> getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 
@@ -152,7 +163,7 @@ public class UpDownState extends GameState {
 	}
 
 	// Setter methods to modify game state variables
-	public void setPlayers(ArrayList<Integer> players) {
+	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
 	}
 
@@ -181,6 +192,12 @@ public class UpDownState extends GameState {
 		private String suit;
 		private int rank;
 
+		// Copy constructor for the Card class
+		public Card(Card orig) {
+			this.suit = orig.suit;
+			this.rank = orig.rank;
+		}
+
 		public Card(String suit, int rank) {
 			this.suit = suit;
 			this.rank = rank;
@@ -191,6 +208,14 @@ public class UpDownState extends GameState {
 		private ArrayList<Card> hand;
 		private int drinksTaken;
 
+		// Copy constructor for the Player class
+		public Player(Player orig) {
+			this.hand = new ArrayList<>();
+			for (Card card : orig.hand) {
+				this.hand.add(new Card(card));
+			}
+			this.drinksTaken = orig.drinksTaken;
+		}
 	}
 	// Method to increment the dealer count when the dealer counts from 1-13
 	public void incrementDealerCount() {
