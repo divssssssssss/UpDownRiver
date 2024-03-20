@@ -8,6 +8,7 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import android.text.Layout;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -84,21 +85,21 @@ public class UpDownLocalGame extends LocalGame {
 				 gameState.setDealerCount(gameState.getDealerCount() + 1);
 			 }
 
-			 UpDownState.Card[] CurrentCard = gameState.getFlippedCard();
+			 ArrayList<UpDownState.Card> CurrentCard = gameState.getFlippedCard();
 
 			 // want to be able to shuffle the deck of cards and set it to it (not correct yet)
 			 Random random = new Random();
-			 int randomIndex = random.nextInt(CurrentCard.length);
+			 int randomIndex = random.nextInt(CurrentCard.size());
 
 			 // Swap the first card with the randomly selected card
-			 UpDownState.Card temp = CurrentCard[0];
-			 CurrentCard[randomIndex] = temp;
-			 CurrentCard[0] = CurrentCard[randomIndex]; // set the first element to a random card in the deck
+			 UpDownState.Card temp = CurrentCard.get(0);
+			 CurrentCard.set(randomIndex, temp);
+			 CurrentCard.set(0, CurrentCard.get(randomIndex)); // set the first element to a random card in the deck
 
 			 // Set the shuffled first card back to the game state by creating a new deck containing one card to be shown
-			 UpDownState.Card[] shuffledCard = new UpDownState.Card[1];
+			 ArrayList<UpDownState.Card> shuffledCard = new ArrayList<>(1);
 
-			 shuffledCard[0] = CurrentCard[0];
+			 shuffledCard.set(0, CurrentCard.get(0));
 
 			 gameState.setFlippedCard(shuffledCard);
 
@@ -116,21 +117,21 @@ public class UpDownLocalGame extends LocalGame {
 		 }
 		 // this will reshuffle the whole deck of cards
 		 else if (action instanceof ShuffleCards) {
-			 UpDownState.Card[] deck = gameState.getFlippedCard();
+			 ArrayList<UpDownState.Card> deck = gameState.getFlippedCard();
 
 			// make sure deck is bigger then 1 card for the need to shuffle
-			 if (deck.length > 1) {
+			 if (deck.size() > 1) {
 				 Random random = new Random();
 
 				 // Iterate through each card in the deck
-				 for (int i = 0; i < deck.length; i++) {
+				 for (int i = 0; i < deck.size(); i++) {
 					 // Generate a random index within the range of the deck length
-					 int randomIndex = random.nextInt(deck.length);
+					 int randomIndex = random.nextInt(deck.size());
 
 					 // Swap the current card with a randomly selected card in the deck
-					 UpDownState.Card temp = deck[i];
-					 deck[i] = deck[randomIndex];
-					 deck[randomIndex] = temp;
+					 UpDownState.Card temp = deck.get(i);
+					 deck.set(i, deck.get(randomIndex));
+					 deck.set(randomIndex, temp);
 				 }
 				 // Update the game state with the shuffled deck
 				 gameState.setFlippedCard(deck);

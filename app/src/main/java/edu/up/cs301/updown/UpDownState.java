@@ -2,8 +2,9 @@ package edu.up.cs301.updown;
 
 //import androidx.cardview.widget.CardView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-
+import java.util.List;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameState;
@@ -21,12 +22,12 @@ public class UpDownState extends GameState {
 
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
+	// unique identifier for the game state
 	private int id;
-	// variable used to keep track of the cards that have been flipped by the dealer
+	// arraylist to keep track of the cards that have been flipped by the dealer
+	private ArrayList<Card> flippedCard;
 
-	// current value of card on playing deck pile
-	private Card[] flippedCard;
-
+	// list to store player IDs who are currently participating in game
 	private ArrayList<Integer> players = new ArrayList<>();
 
 	/*
@@ -39,6 +40,7 @@ public class UpDownState extends GameState {
 
 	// count for final round going from 1-13
 	private int dealerCount;
+	// keep track of each player's score
 	private int playerScore;
 
 
@@ -46,7 +48,15 @@ public class UpDownState extends GameState {
 		currentRound = 0;
 		dealerCount = 0;
 		id = 0;
-		flippedCard = new Card[21];
+		flippedCard = new ArrayList<>(); // initializing the array to track flipped cards
+		// add 52 cards
+		String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+		for(String suit: suits) {
+			for(int rank = 1; rank <= 13; rank++) {
+				Card card = new Card(suit, rank);
+				flippedCard.add(card);
+			}
+		}
 	}
 
 	/**
@@ -79,20 +89,19 @@ public class UpDownState extends GameState {
 		stringBuilder.append("Player Score: ").append(playerScore);
 		stringBuilder.append("\n");
 		stringBuilder.append("Flipped Cards: ");
+
 		// if there are flipped cards (other than if null), iterates through cards
 		// appends each + comma and space. removes final comma and space
-		if (flippedCard != null) {
-			for (int i = 0; i < flippedCard.length; i++) {
-				stringBuilder.append(flippedCard[i]).append(", ");
-			}
-			stringBuilder.setLength(stringBuilder.length() - 2); // Remove the last comma and space
-		} else {
-			stringBuilder.append("No cards flipped yet");
+		if (flippedCard != null && !flippedCard.isEmpty()) {
+			for (Card card : flippedCard) { //for (int i = 0; i < flippedCard.length; i++) {
+				stringBuilder.append(card).append(", ");
 		}
+		stringBuilder.setLength(stringBuilder.length() - 2); // Remove the last comma and space
+	} else {
+		stringBuilder.append("No cards flipped yet");
+	}
 		stringBuilder.append("\n");
-
 		return stringBuilder.toString();
-
 		/*
 		ALTERNATE SIMPLE TOSTRING METHOD
 		return "Up the River Down the River Game State:" +
@@ -110,13 +119,14 @@ public class UpDownState extends GameState {
 	 * @param orig the object from which the copy should be made
 	 */
 	public UpDownState(UpDownState orig) {
-		// set the counter to that of the original
+		// Copy game state variables from the original object
 		this.players = orig.players;
 		this.currentRound = orig.currentRound;
 		this.dealerCount = orig.dealerCount;
 		this.id = orig.id;
 	}
 
+	// Getter methods to access game state variables
 	public ArrayList<Integer> getPlayers() {
 		return players;
 	}
@@ -125,7 +135,7 @@ public class UpDownState extends GameState {
 		return currentRound;
 	}
 
-	public Card[] getFlippedCard() {
+	public ArrayList<Card> getFlippedCard() {
 		return flippedCard;
 	}
 
@@ -141,6 +151,7 @@ public class UpDownState extends GameState {
 		return playerScore;
 	}
 
+	// Setter methods to modify game state variables
 	public void setPlayers(ArrayList<Integer> players) {
 		this.players = players;
 	}
@@ -149,7 +160,7 @@ public class UpDownState extends GameState {
 		this.currentRound = currentRound;
 	}
 
-	public void setFlippedCard(Card[] flippedCard) {
+	public void setFlippedCard(ArrayList<Card> flippedCard) {
 		this.flippedCard = flippedCard;
 	}
 
@@ -165,18 +176,23 @@ public class UpDownState extends GameState {
 		this.playerScore = playerScore;
 	}
 
+	// Inner class to represent a card that has a suit and rank
 	public class Card {
 		private String suit;
 		private int rank;
-	}
 
-	//comit
+		public Card(String suit, int rank) {
+			this.suit = suit;
+			this.rank = rank;
+		}
+ 	}
+	// Inner class to represent a player that has a card and how many drinks they have taken
 	public class Player {
 		private ArrayList<Card> hand;
 		private int drinksTaken;
 
 	}
-
+	// Method to increment the dealer count when the dealer counts from 1-13
 	public void incrementDealerCount() {
 		dealerCount++;
 	}
