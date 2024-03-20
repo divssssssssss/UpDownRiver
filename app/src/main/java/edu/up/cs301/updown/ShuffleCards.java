@@ -1,3 +1,4 @@
+// @author Chris, Daniel, Divya, Ruth
 package edu.up.cs301.updown;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
