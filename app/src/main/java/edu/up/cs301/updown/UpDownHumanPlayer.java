@@ -86,7 +86,10 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 		testResultsTextView.setText(null);
 
 		// new instance of the game state
-		UpDownHumanPlayer firstInstance = new UpDownHumanPlayer(name);
+		UpDownState firstInstance = new UpDownState();
+
+		UpDownState secondInstance = new UpDownState();
+
 
 		/**
 		 *
