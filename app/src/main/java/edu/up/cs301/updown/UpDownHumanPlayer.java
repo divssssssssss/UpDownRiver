@@ -8,6 +8,7 @@ import edu.up.cs301.updown.R;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
@@ -31,14 +32,14 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 	/* instance variables */
 	
 	// The TextView the displays the current counter value
-	private TextView counterValueTextView;
-	
+	private TextView testResultsTextView;
+
 	// the most recent game state, as given to us by the CounterLocalGame
 	private UpDownState state;
-	
+
 	// the android activity that we are running
 	private GameMainActivity myActivity;
-	
+
 	/**
 	 * constructor
 	 * @param name
@@ -50,32 +51,46 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 	/**
 	 * Returns the GUI's top view object
-	 * 
+	 *
 	 * @return
 	 * 		the top object in the GUI's view heirarchy
 	 */
 	public View getTopView() {
 		return myActivity.findViewById(R.id.top_gui_layout);
 	}
-	
+
 	/**
 	 * sets the counter value in the text view
 	 */
 	protected void updateDisplay() {
 		// set the text in the appropriate widget
-		//counterValueTextView.setText("" + state.getCounter());
+		//testResultsTextView.setText("" + state.getCounter());
 	}
 
 	/**
 	 * this method gets called when the user clicks the '+' or '-' button. It
 	 * creates a new CounterMoveAction to return to the parent activity.
-	 * 
+	 *
 	 * @param button
 	 * 		the button that was clicked
 	 */
 	public void onClick(View button) {
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
+
+		/**
+		 * Project E
+		 */
+
+		// clear the text
+		testResultsTextView.setText(null);
+
+		// new instance of the game state
+		UpDownHumanPlayer firstInstance = new UpDownHumanPlayer(name);
+
+		/**
+		 *
+		 */
 
 		// Construct the action and send it to the game
 		GameAction action = null;
@@ -117,10 +132,10 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// send action to the game
 		game.sendAction(action);
 	}// onClick
-	
+
 	/**
 	 * callback method when we get a message (e.g., from the game)
-	 * 
+	 *
 	 * @param info
 	 * 		the message
 	 */
@@ -128,39 +143,35 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 	public void receiveInfo(GameInfo info) {
 		// ignore the message if it's not a CounterState message
 		if (!(info instanceof UpDownState)) return;
-		
+
 		// update our state; then update the display
 		this.state = (UpDownState)info;
 		updateDisplay();
 	}
-	
+
 	/**
 	 * callback method--our game has been chosen/rechosen to be the GUI,
 	 * called from the GUI thread
-	 * 
+	 *
 	 * @param activity
 	 * 		the activity under which we are running
 	 */
 	public void setAsGui(GameMainActivity activity) {
-		
+
 		// remember the activity
 		this.myActivity = activity;
-		
-	    // Load the layout resource for our GUI
-		activity.setContentView(R.layout.counter_human_player);
-		
-		// make this object the listener for both the '+' and '-' 'buttons
-		Button plusButton = (Button) activity.findViewById(R.id.plusButton);
-		plusButton.setOnClickListener(this);
-		Button minusButton = (Button) activity.findViewById(R.id.minusButton);
-		minusButton.setOnClickListener(this);
 
-		// remember the field that we update to display the counter's value
-		this.counterValueTextView =
-				(TextView) activity.findViewById(R.id.counterValueTextView);
-		
-		// if we have a game state, "simulate" that we have just received
-		// the state from the game so that the GUI values are updated
+	    // Load the layout resource for our GUI
+		activity.setContentView(R.layout.runtest);
+
+		// update to show counter value
+		this.testResultsTextView = (EditText) activity.findViewById(R.id.edit_text_input);
+
+		// listener for run test button
+		Button runTestButton = (Button) activity.findViewById(R.id.button_run_test);
+		runTestButton.setOnClickListener(this);
+
+		// if state is not empty update the GUI
 		if (state != null) {
 			receiveInfo(state);
 		}
