@@ -4,7 +4,6 @@ import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
-import edu.up.cs301.updown.R;
 
 import android.view.View;
 import android.widget.Button;
@@ -87,17 +86,7 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// new instance of the game state
 		UpDownState firstInstance = new UpDownState();
-
 		UpDownState secondInstance = new UpDownState();
-
-		UpDownState firstCopy = new UpDownState(firstInstance);
-
-		UpDownState secondCopy = new UpDownState(secondInstance);
-
-
-		/**
-		 *
-		 */
 
 		// Construct the action and send it to the game
 		GameAction action = null;
@@ -139,8 +128,24 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// send action to the game
 		game.sendAction(action);
 
-		//call actions of new gameState
-		//firstInstance.
+		// deep copies of game states
+		UpDownState firstCopy = new UpDownState(firstInstance);
+		UpDownState secondCopy = new UpDownState(secondInstance);
+
+		// compare string representations of the copies
+		String firstCopyString = firstCopy.toString();
+		String secondCopyString = secondCopy.toString();
+
+		// print both strings
+		testResultsTextView.append("First Copy String:\n" + firstCopyString + "\n");
+		testResultsTextView.append("Second Copy String:\n" + secondCopyString + "\n");
+
+		// check strings are identical
+		if (firstCopyString.equals(secondCopyString)) {
+			testResultsTextView.append("Both copies are the same");
+		} else {
+			testResultsTextView.append("The copies are different");
+		}
 	}// onClick
 
 	/**
