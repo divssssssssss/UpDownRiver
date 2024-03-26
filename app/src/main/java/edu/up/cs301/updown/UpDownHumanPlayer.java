@@ -84,7 +84,6 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// clear the text
 		testResultsTextView.setText(null);
 
-
 		// new instance of the game state
 		UpDownState firstInstance = new UpDownState();
 		UpDownState secondInstance = new UpDownState();
@@ -133,7 +132,25 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// send action to the game
 		game.sendAction(action);
-	//END RUTH CODE
+
+		// deep copies of game states
+		UpDownState firstCopy = new UpDownState(firstInstance);
+		UpDownState secondCopy = new UpDownState(secondInstance);
+
+		// compare string representations of the copies
+		String firstCopyString = firstCopy.toString();
+		String secondCopyString = secondCopy.toString();
+
+		// print both strings
+		testResultsTextView.append("First Copy String:\n" + firstCopyString + "\n");
+		testResultsTextView.append("Second Copy String:\n" + secondCopyString + "\n");
+
+		// check strings are identical
+		if (firstCopyString.equals(secondCopyString)) {
+			testResultsTextView.append("Both copies have identical string representations.");
+		} else {
+			testResultsTextView.append("String representations of copies are different.");
+		}
 	}// onClick
 
 	/**
