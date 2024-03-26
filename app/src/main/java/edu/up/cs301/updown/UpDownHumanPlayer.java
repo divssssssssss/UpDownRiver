@@ -4,7 +4,6 @@ import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
-import edu.up.cs301.updown.R;
 
 import android.view.View;
 import android.widget.Button;
@@ -74,7 +73,7 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 * @param button
 	 * 		the button that was clicked
 	 */
-	public void onClick(View button) {
+	public void onClick(View button) {x
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
 
@@ -85,9 +84,9 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// clear the text
 		testResultsTextView.setText(null);
 
+
 		// new instance of the game state
 		UpDownState firstInstance = new UpDownState();
-
 		UpDownState secondInstance = new UpDownState();
 
 
@@ -134,6 +133,7 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// send action to the game
 		game.sendAction(action);
+	//END RUTH CODE
 	}// onClick
 
 	/**
