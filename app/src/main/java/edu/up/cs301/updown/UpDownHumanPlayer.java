@@ -90,6 +90,10 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		UpDownState secondInstance = new UpDownState();
 
+		UpDownState firstCopy = new UpDownState(firstInstance);
+
+		UpDownState secondCopy = new UpDownState(secondInstance);
+
 
 		/**
 		 *
@@ -134,6 +138,9 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// send action to the game
 		game.sendAction(action);
+
+		//call actions of new gameState
+		//firstInstance.
 	}// onClick
 
 	/**
