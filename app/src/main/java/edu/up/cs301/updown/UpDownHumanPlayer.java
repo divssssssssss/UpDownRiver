@@ -73,7 +73,7 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 	 * @param button
 	 * 		the button that was clicked
 	 */
-	public void onClick(View button) {x
+	public void onClick(View button) {
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
 
@@ -87,11 +87,6 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 		// new instance of the game state
 		UpDownState firstInstance = new UpDownState();
 		UpDownState secondInstance = new UpDownState();
-
-
-		/**
-		 *
-		 */
 
 		// Construct the action and send it to the game
 		GameAction action = null;
@@ -147,9 +142,9 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 
 		// check strings are identical
 		if (firstCopyString.equals(secondCopyString)) {
-			testResultsTextView.append("Both copies have identical string representations.");
+			testResultsTextView.append("Both copies are the same");
 		} else {
-			testResultsTextView.append("String representations of copies are different.");
+			testResultsTextView.append("The copies are different");
 		}
 	}// onClick
 
