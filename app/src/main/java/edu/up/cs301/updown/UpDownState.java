@@ -4,6 +4,7 @@ package edu.up.cs301.updown;
 //import androidx.cardview.widget.CardView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
@@ -39,7 +40,8 @@ public class UpDownState extends GameState {
 	// count for final round going from 1-13
 	private int dealerCount;
 	// keep track of each player's score
-	private int playerScore;
+	private int player1Score;
+	private int player2Score;
 
 
 	public UpDownState() {
@@ -47,6 +49,9 @@ public class UpDownState extends GameState {
 		dealerCount = 0;
 		id = 0;
 		flippedCard = new ArrayList<>(); // initializing the array to track flipped cards
+		players.add(new Player(1));
+		players.add(new Player(2));
+
 		// add 52 cards
 		String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
 		for(String suit: suits) {
@@ -84,7 +89,9 @@ public class UpDownState extends GameState {
 		stringBuilder.append("\n");
 		stringBuilder.append("Dealer Count-Off: ").append(dealerCount);
 		stringBuilder.append("\n");
-		stringBuilder.append("Player Score: ").append(playerScore);
+		stringBuilder.append("Player Score: ").append(player1Score);
+		stringBuilder.append("\n");
+		stringBuilder.append("Player Score: ").append(player2Score);
 		stringBuilder.append("\n");
 		stringBuilder.append("Flipped Cards: ");
 
@@ -121,7 +128,8 @@ public class UpDownState extends GameState {
 		this.currentRound = orig.currentRound;
 		this.dealerCount = orig.dealerCount;
 		this.id = orig.id;
-		this.playerScore = orig.playerScore;
+		this.player1Score = orig.player1Score;
+		this.player2Score = orig.player2Score;
 
 		// Copy players
 		this.players = new ArrayList<>();
@@ -135,8 +143,6 @@ public class UpDownState extends GameState {
 			this.flippedCard.add(new Card(card));
 		}
 	}
-
-
 
 	// Getter methods to access game state variables
 	public ArrayList<Player> getPlayers() {
@@ -159,8 +165,11 @@ public class UpDownState extends GameState {
 		return id;
 	}
 
-	public int getPlayerScore() {
-		return playerScore;
+	public int getPlayer1Score() {
+		return player1Score;
+	}
+	public int getPlayer2Score() {
+		return player2Score;
 	}
 
 	// Setter methods to modify game state variables
@@ -184,8 +193,11 @@ public class UpDownState extends GameState {
 		this.id = id;
 	}
 
-	public void setPlayerScore(int playerScore) {
-		this.playerScore = playerScore;
+	public void setPlayer1Score(int player1Score) {
+		this.player1Score = player1Score;
+	}
+	public void setPlayer2Score(int player2Score) {
+		this.player1Score = player2Score;
 	}
 
 	// Inner class to represent a card that has a suit and rank
@@ -209,6 +221,13 @@ public class UpDownState extends GameState {
 		private ArrayList<Card> hand;
 		private int drinksTaken;
 
+		private int id;
+		public Player(int id) {
+			hand = new ArrayList<>();
+			drinksTaken = 0;
+			this.id = id;
+		}
+
 		// Copy constructor for the Player class
 		public Player(Player orig) {
 			this.hand = new ArrayList<>();
@@ -216,12 +235,125 @@ public class UpDownState extends GameState {
 				this.hand.add(new Card(card));
 			}
 			this.drinksTaken = orig.drinksTaken;
+			this.id = orig.id;
 		}
+
+
+		@Override
+		public boolean equals(Object other) {
+			//if (other is not a player) return false;
+			if (this.id == ((Player)other).id) {
+				return true;
+			}
+			return false;
+		}
+
+	}
+
+	//Factory method to createa a Player
+	public Player makePlayer(int id) {
+		return new Player(id);
 	}
 	// Method to increment the dealer count when the dealer counts from 1-13
 	public void incrementDealerCount() {
 		dealerCount++;
 	}
+
+
+	public boolean ShuffleCardAction(UpDownHumanPlayer action) {
+		if (this.getCurrentRound() >= 8) {
+			this.setDealerCount(this.getDealerCount() + 1);
+		}
+
+		ArrayList<UpDownState.Card> CurrentCard = this.getFlippedCard();
+
+		// want to be able to shuffle the deck of cards and set it to it (not correct yet)
+		Random random = new Random();
+		int randomIndex = random.nextInt(CurrentCard.size());
+
+		// Swap the first card with the randomly selected card
+		UpDownState.Card temp = CurrentCard.get(0);
+		CurrentCard.set(randomIndex, temp);
+		CurrentCard.set(0, CurrentCard.get(randomIndex)); // set the first element to a random card in the deck
+
+		// Set the shuffled first card back to the game state by creating a new deck containing one card to be shown
+		ArrayList<UpDownState.Card> shuffledCard = new ArrayList<>(1);
+
+		shuffledCard.add( CurrentCard.get(0));
+
+		this.setFlippedCard(shuffledCard);
+
+		// add 1 to the current round of the game
+		this.setCurrentRound(this.getCurrentRound() + 1);
+
+		return true;
+	//end of shufflecardaction
+	}
+
+	public boolean ReShuffleCardAction(UpDownHumanPlayer action) {
+		ArrayList<UpDownState.Card> deck = this.getFlippedCard();
+
+		// make sure deck is bigger then 1 card for the need to shuffle
+		if (deck.size() > 1) {
+			Random random = new Random();
+
+			// Iterate through each card in the deck
+			for (int i = 0; i < deck.size(); i++) {
+				// Generate a random index within the range of the deck length
+				int randomIndex = random.nextInt(deck.size());
+
+				// Swap the current card with a randomly selected card in the deck
+				UpDownState.Card temp = deck.get(i);
+				deck.set(i, deck.get(randomIndex));
+				deck.set(randomIndex, temp);
+			}
+			// Update the game state with the shuffled deck
+			this.setFlippedCard(deck);
+		}
+		return true;
+	}
+
+	public boolean giveDrinkAction(GiveDrink drink) {
+
+		// Determine which player is giving the drink
+		Player giver = drink.getGiver();
+		Player receiver = drink.getReceiver();
+
+		// Increment the receiver's score
+		if (giver.equals(players.get(0))) {
+			// Player 1 is giving the drink
+			player1Score++;
+		} else if (giver == players.get(1)) {
+			// Player 2 is giving the drink
+			player2Score++;
+		}
+
+		// Decrement the giver's score
+		if (receiver.equals(players.get(0))) {
+			// Player 1 is receiving the drink
+			player1Score--;
+		} else if (receiver == players.get(1)) {
+			// Player 2 is receiving the drink
+			player2Score--;
+		}
+
+		return true;
+	}
+
+//	public boolean addPoint() {
+//		this.setPlayerScore(this.getPlayerScore() + 1);
+//		return true;
+//	}
+//	public boolean subtractPoint() {
+//		this.setPlayerScore(this.getPlayerScore() - 1);
+//		return true;
+//	}
+	public boolean submitPoint() {
+		this.setCurrentRound(this.getCurrentRound() - 1);
+		return true;
+	}
+
+
 
 }
 

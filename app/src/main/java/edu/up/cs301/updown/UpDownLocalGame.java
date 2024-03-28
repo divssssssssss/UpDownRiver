@@ -141,12 +141,14 @@ public class UpDownLocalGame extends LocalGame {
 		 }
 		 // add 1 point for down the river if button is clicked
 		 else if (action instanceof UpDownMoveAction.AddPoint) {
-			 gameState.setPlayerScore(gameState.getPlayerScore() + 1);
+			 gameState.setPlayer1Score(gameState.getPlayer1Score() + 1);
+			gameState.setPlayer2Score(gameState.getPlayer2Score() + 1);
 			 return true;
 		 }
 		 // subtract 1 point for down the river if button is clicked
 		 else if (action instanceof UpDownMoveAction.SubtractPoint) {
-			 gameState.setPlayerScore(gameState.getPlayerScore() - 1);
+			 gameState.setPlayer1Score(gameState.getPlayer1Score() - 1);
+			gameState.setPlayer2Score(gameState.getPlayer2Score() - 1);
 			 return true;
 		 }
 		 // submit the points to players for Down the River when button is clicked and also -1 to current round

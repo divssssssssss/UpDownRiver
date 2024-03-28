@@ -66,17 +66,11 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 		//testResultsTextView.setText("" + state.getCounter());
 	}
 
-	/**
-	 * this method gets called when the user clicks the '+' or '-' button. It
-	 * creates a new CounterMoveAction to return to the parent activity.
-	 *
-	 * @param button
-	 * 		the button that was clicked
+	/**&
+	 * this is the onclick handler for the unit test (Proj #E)
 	 */
-	public void onClick(View button) {
-		// if we are not yet connected to a game, ignore
-		if (game == null) return;
-
+	@Override
+	public void onClick(View v) {
 		/**
 		 * Project E
 		 */
@@ -88,49 +82,26 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 		UpDownState firstInstance = new UpDownState();
 		UpDownState secondInstance = new UpDownState();
 
-		// Construct the action and send it to the game
-		GameAction action = null;
-
-		boolean HasShuffled = false; // use to check if deck has been shuffled after down the river
-
-		// if it is the 8th round then the deck pile will turn into a shuffle card button
-		if (state.getCurrentRound() == 8 && !HasShuffled) {
-			if (button.getId() == R.id.deck_pile) {
-				action = new ShuffleCards(this);
-				HasShuffled = true;
-			}
-		}
-		// Check to see if flip card button is pressed and is below 8 cards dealt
-		else if (button.getId() == R.id.deck_pile) {
-			action = new CardFlipped(this);
-		}
-
-		// return home button
-		if (button.getId() == R.id.homeButton) {
-			// return to main menu
-			 action = new ReturnHome(this);
-		}
-
-		// add button for down the river *(need to change the ID when we get the popup to work)*
-		if (button.getId() == R.id.plusButton) {
-			action = new UpDownMoveAction.AddPoint(this);
-		}
-		// minus button to subtract points for down the river *(need to change the ID when we get the popup to work)*
-		else if (button.getId() == R.id.minusButton) {
-			action = new UpDownMoveAction.SubtractPoint(this);
-		}
-
-		// this will be for the submit points button *(need to change the ID when we get the popup to work)*
-		if (button.getId() == R.id.p1points) {
-			action = new UpDownMoveAction.SubmitPoints(this);
-		}
-
-		// send action to the game
-		game.sendAction(action);
-
 		// deep copies of game states
 		UpDownState firstCopy = new UpDownState(firstInstance);
 		UpDownState secondCopy = new UpDownState(secondInstance);
+
+		//who is playing the game
+		UpDownState.Player p1 = firstInstance.makePlayer(1);
+		UpDownState.Player p2 = firstInstance.makePlayer(2);
+
+
+		firstInstance.ShuffleCardAction(this);
+		testResultsTextView.append("Player shuffles the deck.\n");
+		testResultsTextView.append("Player flips a card.\n");
+		firstInstance.ReShuffleCardAction(this);
+//		firstInstance.addPoint();
+//		firstInstance.subtractPoint();
+		firstInstance.giveDrinkAction(new GiveDrink(this, p1, p2));
+		testResultsTextView.append("Player adds a point.\n");
+		testResultsTextView.append("Player subtracts a point.\n");
+		firstInstance.submitPoint();
+		testResultsTextView.append("Player submits points.\n");
 
 		// compare string representations of the copies
 		String firstCopyString = firstCopy.toString();
@@ -146,6 +117,74 @@ public class UpDownHumanPlayer extends GameHumanPlayer implements OnClickListene
 		} else {
 			testResultsTextView.append("The copies are different");
 		}
+
+		//now player 1 plays
+	}
+
+	/**
+	 * this method gets called when the user clicks the '+' or '-' button. It
+	 * creates a new CounterMoveAction to return to the parent activity.
+	 *
+	 * @param button
+	 * 		the button that was clicked
+	 */
+	public void onClickForGame(View button) {
+		// if we are not yet connected to a game, ignore
+		if (game == null) return;
+
+
+		//UpDownHumanPlayer player = new UpDownHumanPlayer("Player");
+
+
+		// Construct the action and send it to the game
+		GameAction action = null;
+
+		boolean HasShuffled = false; // use to check if deck has been shuffled after down the river
+
+		// if it is the 8th round then the deck pile will turn into a shuffle card button
+		if (state.getCurrentRound() == 8 && !HasShuffled) {
+			if (button.getId() == R.id.deck_pile) {
+				action = new ShuffleCards(this);
+				HasShuffled = true;
+
+			}
+		}
+		// Check to see if flip card button is pressed and is below 8 cards dealt
+		else if (button.getId() == R.id.deck_pile) {
+			action = new CardFlipped(this);
+
+		}
+
+		// return home button
+		else if (button.getId() == R.id.homeButton) {
+			// return to main menu
+			 action = new ReturnHome(this);
+
+		}
+
+		// add button for down the river *(need to change the ID when we get the popup to work)*
+		else if (button.getId() == R.id.plusButton) {
+			action = new UpDownMoveAction.AddPoint(this);
+
+		}
+		// minus button to subtract points for down the river *(need to change the ID when we get the popup to work)*
+		else if (button.getId() == R.id.minusButton) {
+			action = new UpDownMoveAction.SubtractPoint(this);
+
+		}
+
+		// this will be for the submit points button *(need to change the ID when we get the popup to work)*
+		else if (button.getId() == R.id.p1points) {
+			action = new UpDownMoveAction.SubmitPoints(this);
+
+		}
+
+		// send action to the game
+		this.game.sendAction(action);
+
+		// update display
+//		updateDisplay();
+
 	}// onClick
 
 	/**
